@@ -1,0 +1,20 @@
+<span class="text-center">
+	{% if playlists['prevPageToken']|length == 0 %}
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/trending.min.css') }}">
+		<h5 class="brand lead">Editor's Choice and Playlists</h5>
+	{% endif %}
+	{% for playlist in playlists['videos'] %}
+		<div class="trending-video">
+			<a href="/stream?list={{ playlist['playlistId'] }}">
+				<span class="image-container">
+					<img src="{{ playlist['thumbnails']['medium']['url'] }}" class="img img-thumbnail">
+					<span class="after">
+						<span class="content">Playlist</span>
+					</span>
+				</span>
+				<h5 class="brand title">{{ playlist['title'] }}</h5>
+			</a>
+		</div>
+	{% endfor %}
+	{% if playlists['nextPageToken']|length > 0 %}<h6><a href="/playlists?pageToken={{ playlists['nextPageToken'] }}" id="trending-load-more" class="btn btn-link brand">Load More Playlists</a></h6>{% endif %}
+</span>

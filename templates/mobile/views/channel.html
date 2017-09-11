@@ -1,0 +1,9 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}{{ channel['title'] }}{% endblock %}
+
+{% block content %}
+<div id="page-content">
+{% include 'mobile/ajax/channel.html' with context %}
+</div>
+{% endblock %}

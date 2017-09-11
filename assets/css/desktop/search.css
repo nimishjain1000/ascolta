@@ -1,0 +1,11 @@
+#main-content { width:100%;margin:1em auto; }
+.media {margin-left:7px;margin-bottom:5px;}
+.media-body { color:#909090;text-align:left; }
+.media-heading {padding-top:5px;}
+#search-filter-heading { cursor:pointer; }
+.form-inline .form-group {
+	margin-bottom:0.5em;padding:0.5em 1em;
+}
+.form-inline .form-group label {
+	padding-right:0.5em;
+}

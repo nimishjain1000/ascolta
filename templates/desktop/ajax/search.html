@@ -1,0 +1,49 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+			<div class="form-group">
+				<div class="panel panel-default">
+					<div class="panel-heading" id="search-filter-heading">Filters <span class="pull-right" id="search-filter-caret"><i class="fa fa-fw fa-caret-down"></i></span></div>
+					<div class="panel-body hidden-md hidden-lg" id="search-filter-filters">
+						<div class="form form-inline">
+							<div class="form-group">
+								<label for="order">Order :</label>
+								<select id="search-filter-order" class="form-control input-sm">
+									<option value="relevance" {% if order == 'relevance' %}selected{% endif %}>Relevance</option>
+									<option value="date" {% if order == 'date' %}selected{% endif %}>Latest Uploads</option>
+									<option value="rating" {% if order == 'rating' %}selected{% endif %}>Ratings</option>
+									<option value="title" {% if order == 'title' %}selected{% endif %}>Alphabetically</option>
+									<option value="viewCount" {% if order == 'viewCount' %}selected{% endif %}>Total Views</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="resource">Type :</label>
+								<select id="search-filter-resource" class="form-control input-sm">
+									<option value="video,channel,playlist"  {% if type == 'video,channel,playlist' %}selected{% endif %}>All Resources</option>
+									<option value="video" {% if type == 'video' %}selected{% endif %}>Songs</option>
+									<option value="channel" {% if type == 'channel' %}selected{% endif %}>Channel</option>
+									<option value="playlist" {% if type == 'playlist' %}selected{% endif %}>Playlist</option>
+								</select>
+							</div>
+							<div class="form-group {% if duration|length == 0 %}hidden-md hidden-lg{% endif %}">
+							<label for="duration">Duration :</label>
+							<select id="search-filter-duration" class="form-control input-sm">
+								<option value="any" {% if duration == 'any' %}selected{% endif %}>Any Song</option>
+								<option value="short" {% if duration == 'short' %}selected{% endif %}>Short ( < 4 min)</option>
+								<option value="long" {% if duration == 'long' %}selected{% endif %}>Long ( > 20 min)</option>
+								<option value="medium" {% if duration == 'medium' %}selected{% endif %}>Medium (< 20 min and > 4 min)</option>
+								<option value="" {% if duration == '' %}selected{% endif %}>No Duration</option>
+							</select>
+						</div>
+					</div>
+					<p class="help-block">Search again to enable these filters.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="container">
+{% include 'desktop/ajax/list.html' with context %}
+</div>
+<script src="{{ url_for('static', filename='js/desktop/search.min.js') }}"></script>

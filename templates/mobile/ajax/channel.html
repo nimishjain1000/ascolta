@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/home.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/channel.min.css') }}">
+<div class="channel-header">
+	<div class="channel-banner">
+		<img src="{{ channel['branding'].get('bannerMobileMediumHdImageUrl', channel['branding'].get('bannerImageUrl')) }}">
+		<div class="after"></div>
+	</div>
+	<div class="channel-description">
+		<img src="{{ channel['thumbnails']['default']['url'] }}" alt="" width="{{ channel['thumbnails']['default']['width'] }}" height="{{ channel['thumbnails']['default']['height'] }}" class="channel-thumbnail img img-circle">
+		<div class="text-right">
+			<h5 class="brand">{{ channel['title'] }}</h5>
+			<h6>creating vibes since <b>{{ channel['publishedAt'] }}</b></h6>
+		</div>
+	</div>
+</div>
+{% set maxResults,channelId='50',channel['channelId'] %}
+<ul id="channel-page-nav">
+	<li class="active"><a href="/search?type=video&{% if order|length > 0 %}order={{ order }}&{% endif %}channelId={{ channelId }}&{% if maxResults|length > 0%}maxResults={{ maxResults }}{% endif %}" id="channel-songs"><i class="fa fa-fw fa-music"></i> Songs</a></li>
+	<li><a href="/search?type=playlist&{% if order|length > 0 %}order={{ order }}&{% endif %}channelId={{ channelId }}&{% if maxResults|length > 0%}maxResults={{ maxResults }}{% endif %}" id="channel-playlists"><i class="fa fa-fw fa-th-list"></i> Playlists</a></li>
+</ul>
+<div id="channel-content">
+{% include "mobile/ajax/list.html" with context %}
+</div>
+</div>
+<script src="{{ url_for('static', filename='js/mobile/channel.min.js') }}"></script>

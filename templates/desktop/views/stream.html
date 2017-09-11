@@ -1,0 +1,13 @@
+{% extends 'desktop/base.html' %}
+
+{% block title %}
+{% if type == 'video' %}
+{{ core['videos'][0]['title'] }} | {{ core['videos'][0]['channelTitle'] }}
+{% elif type == 'playlist' or type == 'ascolta_playlist' %}
+{{ core['title'] }} | {{ core['channelTitle'] }}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% include 'desktop/ajax/stream.html' with context %}
+{% endblock %}

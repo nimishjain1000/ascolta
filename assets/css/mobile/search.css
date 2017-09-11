@@ -1,0 +1,9 @@
+#search-bar-container {
+	padding:8px 15px 20px 15px;border-bottom:1px solid #c5c5c5;
+}
+#page-content { width:100vw;margin:0 auto; }
+#search-content { width:95vw;margin:20px auto 5px auto;padding:5px 0; }
+.media {margin-left:7px;margin-bottom:5px;}
+.media-body { color:#909090;text-align:left; }
+.media-heading {padding-top:5px;}
+#search-filter-heading { cursor:pointer; }

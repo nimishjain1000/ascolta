@@ -1,0 +1,21 @@
+{% for video in search.videos %}
+	<div class="form-group video">
+		<a href="/stream?v={{ video.id }}">
+			<span class="image-container">
+				<img src="{{ video.thumbnails.medium.url or video.thumbnails.default.url or '#' }}" class="img img-thumbnail" width="267" height="150">
+				<span class="after">
+					<span class="content">{{ video.duration }}</span>
+				</span>
+			</span>
+			<h4 class="title">{{ video.title }}</h4>
+			{% if 'topicId' not in search %}
+				<h5><a href="/channel/{{ video.channelId }}">{{ video.channelTitle }}</a></h5>
+			{% endif %}
+		</a>
+	</div>
+{% endfor %}
+{% if search['nextPageToken']|length > 0 %}
+	<div class="form-group recommended-load-more-container text-center">
+		<a href="/{{ page|default('search') }}?page=thumbs&maxResults=8&pageToken={{ search.nextPageToken }}{% if search.id %}&playlistId={{ search.id }}{% endif %}{% if search.topicId %}&topicId={{ search.topicId }}{% endif %}{% if search.relatedToVideoId or relatedToVideoId|length > 0 %}&relatedToVideoId={{ search.relatedToVideoId or relatedToVideoId }}{% endif %}" class="btn btn-default recommended-load-more"><h6 class="brand">Load More Songs</h6></a>
+	</div>
+{% endif %}

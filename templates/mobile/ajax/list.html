@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/search.min.css') }}">
+{% for video in search['videos'] %}
+	{% if video['kind'] == 'youtube#video' %}
+		{% set video_json = {'status':True,'videos':[video]} %}
+		<div class="media" id='{{ video["videoId"] }}'>
+			<div class="media-left">
+				<a href="/stream?v={{ video['videoId'] }}" data-id='{{ video["videoId"] }}' data-media-type='video'>
+					<span class="image-container">
+						<img src="{{ video['thumbnails']['default']['url'] }}" alt="" width="{{ video['thumbnails']['default']['width'] }}" height="{{ video['thumbnails']['default']['height'] }}" class="media-object img img-thumbnail">
+						<span class="after">
+							<span class="content">{{ video['duration'] }}</span>
+						</span>
+					</span>
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading"><a href="/stream?v={{ video['videoId'] }}" data-id='{{ video["videoId"] }}' data-media-type='video'>{{ video['title'] }}</a></h5>
+				<p><h6><a href="/channel/{{ video['channelId'] }}">{{ video['channelTitle'] }}</a></h6>
+				<h6><span>Uploaded on: {{ video['publishedAt'] }}</span></h6></p>
+			</div>
+		</div>
+		{% elif video['kind'] == 'youtube#playlist' %}
+		<div class="media" id='{{ video["playlistId"] }}'>
+			<div class="media-left">
+				<a href="/stream?list={{ video['playlistId'] }}" data-id='{{ video['playlistId'] }}' data-media-type='playlist'>
+					<span class="image-container">
+						<img src="{{ video['thumbnails']['default']['url'] }}" alt="" width="{{ video['thumbnails']['default']['width'] }}" height="{{ video['thumbnails']['default']['height'] }}" class="media-object img img-thumbnail">
+						<span class="after">
+							<span class="content brand">Playlist</span>
+						</span>
+					</span>
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading"><a href="/stream?list={{ video['playlistId'] }}" data-id='{{ video['playlistId'] }}' data-media-type='playlist'>{{ video['title'] }}</a></h5>
+				<p><h6><a href="/channel/{{ video['channelId'] }}">{{ video['channelTitle'] }}</a></h6>
+				<h6><span>Uploaded on: {{ video['publishedAt'] }}</span></h6></p>
+			</div>
+		</div>
+		{% elif video['kind'] == 'youtube#channel' %}
+		<div class="media" id='{{ video["channelId"] }}'>
+			<div class="media-left">
+				<a href="/channel/{{ video['channelId'] }}" data-id='{{ video["channelId"] }}' data-media-type='channel'>
+					<img src="{{ video['thumbnails']['default']['url'] }}" alt="" width="{{ video['thumbnails']['default']['width'] }}" height="{{ video['thumbnails']['default']['height'] }}" class="media-object img img-circle">
+				</a>
+			</div>
+			<div class="media-body">
+				<h5 class="media-heading"><a href="/channel/{{ video['channelId'] }}" data-id='{{ video["channelId"] }}' data-media-type='channel'>{{ video['channelTitle'] }}</a></h5>
+				<p><h6><span>Created on: {{ video['publishedAt'] }}</span></h6></p>
+			</div>
+		</div>
+	{% endif %}
+{% endfor %}
+{% if search['nextPageToken']|length > 0 %}
+	<div class="container-fluid text-center" id="load-more-container"><a href="/search?{% if q|length > 0 %}q={{ q }}&{% endif %}{% if duration|length > 0 %}duration={{ duration }}&{% endif %}{% if type|length > 0 %}type={{ type }}&{% endif %}{% if order|length > 0 %}order={{ order }}&{% endif %}{% if search['nextPageToken']|length > 0 %}pageToken={{ search['nextPageToken'] }}&{% endif %}{% if relatedToVideoId|length > 0 %}relatedToVideoId={{ relatedToVideoId }}&{% endif %}{% if channelId|length > 0%}channelId={{ channelId }}&{% endif %}{% if page|length > 0%}page={{ page }}&{% endif %}{% if maxResults|length > 0%}maxResults={{ maxResults }}{% endif %}" class="brand btn btn-link" id="load-more">Load More</a></div>
+{% endif %}

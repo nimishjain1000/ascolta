@@ -1,0 +1,50 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/global/streamer.min.css') }}">
+<div class="announce"></div>
+<div class='jAudio'>
+    <audio preload autoplay></audio>
+    <div class='jAudio--ui'>
+        <div class='jAudio--thumb'></div>
+        <div class='jAudio--status-bar'>
+            <div class='jAudio--details'></div>
+            <div class='jAudio--volume-bar'></div>
+            <div class='jAudio--progress-bar'>
+                <div class='jAudio--progress-bar-wrapper'>
+                    <div class='jAudio--progress-bar-played'>
+                        <span class='jAudio--progress-bar-pointer'></span>
+                    </div>
+                </div>
+            </div>
+            <div class='jAudio--time'>
+                <span class='jAudio--time-elapsed'>00:00</span>
+                <span class='jAudio--time-total'>00:00</span>
+            </div>
+        </div>
+    </div>
+    <div class='jAudio--playlist'>
+    </div>
+    <div class='jAudio--controls'>
+        <ul>
+            <li>
+                <button class='jAudio--control jAudio--control-download' data-action='download'><i class="fa fa-fw fa-download"></i>
+                </button>
+            </li>
+            <li>
+                <button class='jAudio--control jAudio--control-prev' data-action='prev'><i class="fa fa-fw fa-backward"></i>
+                </button>
+            </li>
+            <li>
+                <button class='jAudio--control jAudio--control-play' data-action='play'><i class="fa fa-fw fa-play"></i>
+                </button>
+            </li>
+            <li>
+                <button class='jAudio--control jAudio--control-next' data-action='next'><i class="fa fa-fw fa-forward"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container text-center" id="related"></div>
+<input type="hidden" id="jAudio--core-type" value="{{ type }}">
+<input type="hidden" id="jAudio--core-data" value='{{ json_core }}'>
+<script src="{{ url_for('static', filename='js/global/jaudio.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mobile/streamer.min.js') }}"></script>

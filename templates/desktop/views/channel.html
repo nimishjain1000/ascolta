@@ -1,0 +1,7 @@
+{% extends 'desktop/base.html' %}
+
+{% block title %}{{ channel['title'] }}{% endblock %}
+
+{% block content %}
+{% include 'desktop/ajax/channel.html' with context %}
+{% endblock %}

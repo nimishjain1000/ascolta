@@ -1,0 +1,14 @@
+<div class='jumbotron {% if q|length == 0 %}hidden-xs{% endif %}' id='search-bar-container'>
+	<form method='GET' action='/search' autocomplete='off'>
+		<input type="hidden" name="type" id="search-type" value="">
+		<input type="hidden" name="order" id="search-order" value="">
+		<input type="hidden" name="duration" id="search-duration" value="">
+		<input type="hidden" name="pageToken" id="search-pageToken" value="">
+		<div class='input-group input-group-sm'>
+			<input type='search' class='form-control' name="q" placeholder='Search' id='search-bar' value='{{ q }}'>
+			<div class='input-group-btn'>
+				<button class='btn btn-success' type='submit' id='search-bar-search'><i class='fa fa-fw fa-search'></i></button>
+			</div>
+		</div>
+	</form>
+</div>

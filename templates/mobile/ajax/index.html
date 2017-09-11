@@ -1,0 +1,10 @@
+<link rel='stylesheet' href='{{ url_for("static", filename="css/mobile/home.min.css") }}'>
+<ul id="page-nav">
+	<li class="active"><a href="{{ url_for('home') }}" id="home"><i class="fa fa-fw fa-home"></i></a></li>
+	<li><a href="{{ url_for('trending') }}" id="trending"><i class="fa fa-fw fa-flash"></i></a></li>
+	<li><a href="{{ url_for('playlists') }}" id="playlists"><i class="fa fa-fw fa-th-list"></i></a></li>
+</ul>
+<div id="page-content">
+{% include 'mobile/ajax/home.html' with context %}
+</div>
+<script src="{{ url_for('static', filename='js/mobile/home.min.js') }}"></script>

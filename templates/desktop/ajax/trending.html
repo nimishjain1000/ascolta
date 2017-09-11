@@ -1,0 +1,26 @@
+<span class="text-center">
+	{% if youtube.prevPageToken|length == 0 %}
+		<h5 class="brand lead">Trending in {{ location.countryName }}</h5>
+	{% endif %}
+	<div class="container">
+		{% for video in youtube.videos %}
+			<div class="media">
+				<div class="media-left">
+					<a href="/stream?v={{ video.id }}" data-id='{{ video.id }}' data-media-type='video'>
+						<span class="image-container">
+							<img src="{{ video.thumbnails.medium.url }}" width="267" height="150" class="media-object img img-thumbnail" >
+							<span class="after">
+								<span class="content">{{ video.duration }}</span>
+							</span>
+						</span>
+					</a>
+				</div>
+				<div class="media-body text-left">
+					<h4 class="media-heading"><a href="/stream?v={{ video.id }}" data-id='{{ video.id }}' data-media-type='video'>{{ video.title }}</a></h4>
+					<p><h5><a href="/channel/{{ video.channelId }}">{{ video.channelTitle }}</a></h5></p>
+				</div>
+			</div>
+		{% endfor %}
+		{% if youtube.nextPageToken|length > 0 %}<a href="/trending?pageToken={{ youtube.nextPageToken }}" id="trending-load-more" class="btn btn-default"><h6 class="brand">Load More Trends</h6></a>{% endif %}
+	</div>
+</span>

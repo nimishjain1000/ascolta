@@ -1,0 +1,15 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}
+{% if type == 'video' %}
+{{ core['videos'][0]['title'] }} | {{ core['videos'][0]['channelTitle'] }}
+{% else %}
+{{ core['title'] }} | {{ core['channelTitle'] }}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="page-content">
+{% include 'mobile/ajax/stream.html' with context %}
+</div>
+{% endblock %}

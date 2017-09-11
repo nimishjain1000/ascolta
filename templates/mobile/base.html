@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{% block title %}{% endblock %} | Ascolta</title>
+	<meta charset="UTF-8"><meta name="X-XSS-Protection" content="1;mode=block">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat|Lato" rel="stylesheet">
+	<link rel="apple-touch-icon" sizes="57x57" href="/assets/images/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/assets/images/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/images/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/images/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/assets/images/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/assets/images/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+	<link rel="manifest" href="/assets/images/manifest.json">
+	<meta name="msapplication-TileColor" content="#2b3e50">
+	<meta name="msapplication-TileImage" content="/assets/images/ms-icon-144x144.png">
+	<meta name="theme-color" content="#2b3e50">
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendors/nprogress/nprogress.min.css') }}">
+	<link href="{{ url_for('static', filename='css/global/bootstrap.min.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/global/typeahead.min.css') }}"> 
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/global/repo.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/repo.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/search_bar.min.css') }}">
+	{% block header %}{% endblock %}
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]--> 
+</head>
+<body>
+	{% include "mobile/includes/nav.html" with context %}
+	{% include "mobile/includes/search.html" with context %}
+	<script src="{{ url_for('static',filename='js/global/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/global/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='vendors/nprogress/nprogress.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/global/repo.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/mobile/repo.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/global/typeahead.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/global/search_bar.min.js') }}"></script>
+	<span id="main-content">{% block content %}{% endblock %}</span>
+	{% block footer %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% for playlist in response %}
+	{% if playlist['prevPageToken']|length == 0 %}
+	<div class="container recommended-playlist">
+		<div class="form-group text-center">
+			{% if playlist.title %}
+				<h4 class="brand">{{ playlist.title }}</h4>
+				<h5><a href="/channel/{{ playlist.channelId }}">{{ playlist.channelTitle }}</a></h5>
+			{% elif playlist.topicId %}
+				<h4 class="brand">Recommended for You</h4>
+			{% endif %}
+		</div>
+	{% endif %}
+	{% set search = playlist %}
+	{% include 'mobile/ajax/thumbs.html' with context %}
+	{% if playlist['prevPageToken']|length == 0 %}
+		</div>
+	{% endif %}
+{% endfor %}

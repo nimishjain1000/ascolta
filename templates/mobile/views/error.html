@@ -1,0 +1,9 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}{{ code }}{% endblock %}
+
+{% block content %}
+<div id="page-content">
+{% include 'mobile/ajax/error.html' with context %}
+</div>
+{% endblock %}

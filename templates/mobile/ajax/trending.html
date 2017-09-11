@@ -1,0 +1,21 @@
+<span class="text-center">
+	{% if youtube['prevPageToken']|length == 0 %}
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/trending.min.css') }}">
+		<h5 class="brand lead">Trending in {{ location['countryName'] }}</h5>
+	{% endif %}
+	{% for video in youtube['videos'] %}
+		<div class="trending-video">
+			<a href="/stream?v={{ video['id'] }}">
+				<span class="image-container">
+					<img src="{{ video['thumbnails']['medium']['url'] }}" class="img img-thumbnail">
+					<span class="after">
+						<span class="content">{{ video['duration'] }}</span>
+					</span>
+				</span>
+				<h5 class="title">{{ video['title'] }}</h5>
+			</a>
+			<h6><a href="/channel/{{ video['channelId'] }}">{{ video['channelTitle'] }}</a></h6>
+		</div>
+	{% endfor %}
+	{% if youtube['nextPageToken']|length > 0 %}<h6><a href="/trending?pageToken={{ youtube['nextPageToken'] }}" id="trending-load-more" class="btn btn-link brand">Load More Trends</a></h6>{% endif %}
+</span>

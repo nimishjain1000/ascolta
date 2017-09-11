@@ -1,0 +1,28 @@
+<span class="text-center">
+	{% if playlists['prevPageToken']|length == 0 %}
+		<h5 class="brand lead">Editor's Choice and Playlists</h5>
+	{% endif %}
+	<div class="container">
+		{% for i in range(playlists['videos']|length) %}
+		{% set playlist = playlists['videos'][i] %}
+		{% if i % 3 == 0 %}
+			<div class="row">
+		{% endif %}
+				<div class="col-md-4 col-lg-4">
+					<a href="/stream?list={{ playlist['playlistId'] }}">
+						<span class="image-container">
+							<img src="{{ playlist['thumbnails']['medium']['url'] }}" class="img img-thumbnail">
+							<span class="after">
+								<span class="content">Playlist</span>
+							</span>
+						</span>
+						<h5 class="brand title">{{ playlist['title'] }}</h5>
+					</a>
+				</div>
+		{% if i+2 % 3 == 0 %}
+			</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+	{% if playlists['nextPageToken']|length > 0 %}<a href="/playlists?pageToken={{ playlists['nextPageToken'] }}" id="trending-load-more" class="btn btn-link"><h6 class="brand">Load More Playlists</h6></a>{% endif %}
+</span>
