@@ -5,7 +5,7 @@ $(document).ready(function(){
 		contentid:'.recommended',logHistory:false,spin:false
 	});
 
-	$('#main-content').on('click', '.row a', function(e) {
+	$(document).on('click', '.row a', function(e) {
         e.preventDefault(); var title = $(this).find('.title').eq(0).text();
         renderPage($(this).attr('href'),{title:title});
     });
