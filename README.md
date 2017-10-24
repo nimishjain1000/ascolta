@@ -3,7 +3,6 @@
 
  Features:
 - Streams YouTube Video's Music directly
-- Download any song in MP3
 - Works for Direct YouTube Video Links too
 
 Disclaimer  :

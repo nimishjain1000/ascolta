@@ -11,15 +11,6 @@ $(document).ready(function() {
         });
     }
 
-    $('#main-content').on('click', '.jAudio--control-download', function(e) {
-        e.preventDefault();  var title = $('#currentTrack').attr('data-title') + " - " + $('#currentTrack').attr('data-artist'), id = $('#currentTrack').attr('data-id');
-        $.get('https://www.convertmp3.io/fetch/?format=JSON&video=https://www.youtube.com/watch?v='+id+'&title=[Ascolta.ml]%20'+title, function(ajax){
-            window.open(ajax.link, '_self');
-        }).fail(function(){
-            $('.jAudio').parent().prepend('<div class="alert alert-danger"><p>Sorry, there was an error while downloading the file!</p></div>');
-        });
-    });
-
     $('#main-content').on('click', '.recommended-load-more', function(e) {
         e.preventDefault(); var link = $(this).attr('href');
         $('.recommended-load-more-container').html('<i class="fa fa-fw fa-spin fa-circle-o-notch"></i>');
