@@ -38,12 +38,12 @@ $(document).ready(function(){
         $('#search-order').val(order);
     });
 
-	$(document).on('click', '.media a', function(e){
+	$('#main-content').on('click', '.media a', function(e){
 		e.preventDefault(); var title = $(this).closest('.media').find('.media-heading a').eq(0).text();
 		renderPage($(this).attr('href'), {title:title});
 	});
 
-	$(document).on('click', '#search-load-more', function(e) {
+	$('#main-content').on('click', '#search-load-more', function(e) {
         e.preventDefault(); var link = $(this).attr('href'), parent = $(this).parent();
         $(this).html('<h6 class="brand"><i class="fa fa-fw fa-spin fa-circle-o-notch"></i> Loading</h6>');
         renderPage(link, {

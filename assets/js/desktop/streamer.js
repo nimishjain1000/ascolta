@@ -13,7 +13,7 @@ $(document).ready(function() {
 
     $('#main-content').on('click', '.jAudio--control-download', function(e) {
         e.preventDefault();  var title = $('#currentTrack').attr('data-title') + " - " + $('#currentTrack').attr('data-artist'), id = $('#currentTrack').attr('data-id');
-         window.open('https://www.youtubeinmp3.com/fetch?video=https://www.youtube.com/watch?v='+id+'&title=[Ascolta.ml]%20'+title, '_self');
+         window.open('http:////www.convertmp3.io/fetch/?video=https://www.youtube.com/watch?v='+id+'&title=[Ascolta.ml]%20'+title, '_self');
     });
 
     $('#main-content').on('click', '#load-more', function(e) {
@@ -74,7 +74,7 @@ $(document).ready(function() {
     jAudioInitiate($('#jAudio--core-data').attr('value'));
 
     $('#main-content').on('click', '.row a', function(e) {
-        e.preventDefault(); var title = $(this).closest('.row').find('.title').eq(0).text();
+        e.preventDefault(); var title = $(this).find('.title').eq(0).text();
         renderPage($(this).attr('href'),{title:title});
     });
 
@@ -82,7 +82,7 @@ $(document).ready(function() {
         e.preventDefault(); var link = $(this).attr('href'), parent = $(this).parent();
         $(this).html('<h5 class="brand"><i class="fa fa-fw fa-spin fa-circle-o-notch"></i> Loading</h5>');
         renderPage(link, {
-            contentid:'.related',spin:false,logHistory:false,
+            contentid:'#related',spin:false,logHistory:false,
             successCallback:function(data){
                 parent.remove(); $('#related').append(data);
             },

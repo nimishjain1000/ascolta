@@ -12,7 +12,7 @@ from youtube import YouTube
 # Flask Declarations
 
 site = Flask(__name__,static_folder="assets")
-cache = Cache(site,config={'CACHE_TYPE': 'memcached'})
+#cache = Cache(site,config={'CACHE_TYPE': 'memcached'})
 Mobility(site)
 
 def after_this_request(f):
@@ -231,9 +231,6 @@ def recommended():
                 response.append(playlist_topics)
         return render('recommended',response=response,page=page)
     except Exception as e:
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
         return render('error',code=500,message=str(e))
 
 @site.route("/ajax/stream")
@@ -314,9 +311,6 @@ def recommend_more():
                     response.append(playlist_topics)
         return render('recommended',response=response,page=page)
     except Exception as e:
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
         return render('error',code=500,message=str(e))
 
 @site.errorhandler(500)

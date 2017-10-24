@@ -2,7 +2,7 @@
 	<div class="form-group video">
 		<a href="/stream?v={{ video.id }}">
 			<span class="image-container">
-				<img src="{{ video.thumbnails.medium.url or video.thumbnails.default.url or '#' }}" class="img img-thumbnail" width="267" height="150">
+				<img src="{{ video['thumbnails'].get('medium', 'default')['url'] }}" class="img img-thumbnail" width="267" height="150">
 				<span class="after">
 					<span class="content">{{ video.duration }}</span>
 				</span>
