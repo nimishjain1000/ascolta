@@ -1,5 +1,5 @@
 {% set l = search.videos|length if search.videos|length % 4 == 0 else 12 %}
-{% for i in range() %}
+{% for i in range(l) %}
 	{% set video = search.videos[i] %}
 	{% if i % 4 == 0 %}
 		<div class="row">
