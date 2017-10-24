@@ -12,7 +12,7 @@ from youtube import YouTube
 # Flask Declarations
 
 site = Flask(__name__,static_folder="assets")
-#cache = Cache(site,config={'CACHE_TYPE': 'memcached'})
+cache = Cache(site,config={'CACHE_TYPE': 'memcached'})
 Mobility(site)
 
 def after_this_request(f):
@@ -73,7 +73,7 @@ def render(name,**kwargs):
 # Routing and Definitions
 
 @site.route('/')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def index():
     try:
         return render('index')
@@ -81,7 +81,7 @@ def index():
         return render('error',code=500,message=str(e))
 
 @site.route('/home')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def home():
     try:
         return render('home')
@@ -89,7 +89,7 @@ def home():
         return render('error',code=500,message=str(e))
 
 @site.route('/trending')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def trending():
     try:
         pageToken = request.args.get('pageToken','')
@@ -99,7 +99,7 @@ def trending():
         return render('error',code=500,message=str(e))
 
 @site.route('/playlists')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def playlists():
     try:
         pageToken = request.args.get('pageToken','')
@@ -110,7 +110,7 @@ def playlists():
         return render('error',code=500,message=str(e))
 
 @site.route('/search')
-#@cache.cached(timeout=3600,key_prefix=make_cache_key)
+@cache.cached(timeout=3600,key_prefix=make_cache_key)
 def search():
     try:
         q = request.args.get('q', '') 
@@ -160,7 +160,7 @@ def search():
         return render('error',code=500,message=str(e))
 
 @site.route('/stream')
-#@cache.cached(timeout=3600,key_prefix=make_cache_key)
+@cache.cached(timeout=3600,key_prefix=make_cache_key)
 def stream():
     try:
         v = request.args.get('v')
@@ -178,7 +178,7 @@ def stream():
         return render('error',code=500,message=str(e))
 
 @site.route('/channel/<channelId>')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def channel(channelId):
     try:
         order = request.args.get('order','date')
@@ -193,14 +193,14 @@ def channel(channelId):
         return render('error',code=500,message=str(e))
 
 @site.route('/terms')
-#@cache.cached(timeout=604800,key_prefix=make_cache_key)
+@cache.cached(timeout=604800,key_prefix=make_cache_key)
 def terms():
     return render('terms')
 
 # Asynchronous Routes
 
 @site.route('/ajax/recommended')
-#@cache.cached(timeout=1800,key_prefix=make_cache_key)
+@cache.cached(timeout=1800,key_prefix=make_cache_key)
 def recommended():
     try:
         limit,response,page = int(request.args.get('limit','0')),[],'ajax/recommended/more'
@@ -255,7 +255,7 @@ def streamer():
         return Response(mimetype="audio/mpeg")
 
 @site.route('/ajax/query')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def get_query():
     try:
         q = request.args.get('q', '')
@@ -291,7 +291,7 @@ def change_location():
         return render('error',code=500,message=str(e))
 
 @site.route('/ajax/recommended/more')
-#@cache.cached(timeout=3600,key_prefix=make_cache_key)
+@cache.cached(timeout=3600,key_prefix=make_cache_key)
 def recommend_more():
     try:
         pageToken = request.args.get('pageToken','')
