@@ -16,15 +16,16 @@ $(document).ready(function() {
          window.open('http:////www.convertmp3.io/fetch/?video=https://www.youtube.com/watch?v='+id+'&title=[Ascolta.ml]%20'+title, '_self');
     });
 
-    $('#main-content').on('click', '#load-more', function(e) {
+    $('#main-content').on('click', '.recommended-load-more', function(e) {
         e.preventDefault(); var link = $(this).attr('href');
-        $('#load-more-container').html('<i class="fa fa-fw fa-spin fa-circle-o-notch"></i>');
+        $('.recommended-load-more-container').html('<i class="fa fa-fw fa-spin fa-circle-o-notch"></i>');
         renderPage(link, {
             spin: false,logHistory:false,
-            contentid: '#load-more-container',
+            contentid: '.recommended-load-more-container',
             successCallback: function(data) {
-                $('#load-more-container').remove();$('#main-content').append(data);
+                $('.recommended-load-more-container').remove();$('#main-content').append(data);
             },
+            failureCallback:function(){}
         });
     });
 

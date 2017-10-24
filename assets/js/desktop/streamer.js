@@ -16,18 +16,6 @@ $(document).ready(function() {
          window.open('http:////www.convertmp3.io/fetch/?video=https://www.youtube.com/watch?v='+id+'&title=[Ascolta.ml]%20'+title, '_self');
     });
 
-    $('#main-content').on('click', '#load-more', function(e) {
-        e.preventDefault(); var link = $(this).attr('href');
-        $('#load-more-container').html('<i class="fa fa-fw fa-spin fa-circle-o-notch"></i>');
-        renderPage(link, {
-            spin: false,logHistory:false,
-            contentid: '#load-more-container',
-            successCallback: function(data) {
-                $('#load-more-container').remove();$('#main-content').append(data);
-            },
-        });
-    });
-
     function durationSeconds(str) {
         var p = str.split(':'),
             s = 0,
@@ -73,7 +61,7 @@ $(document).ready(function() {
 
     jAudioInitiate($('#jAudio--core-data').attr('value'));
 
-    $('#main-content').on('click', '.row a', function(e) {
+    $(document).on('click', '.row a', function(e) {
         e.preventDefault(); var title = $(this).find('.title').eq(0).text();
         renderPage($(this).attr('href'),{title:title});
     });
