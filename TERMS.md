@@ -1,4 +1,6 @@
-TERMS OF SERVICE FOR USERS
+# Terms
+
+## TERMS OF SERVICE FOR USERS
 
 - The use of Ascolta is subjected to Indian law with the following modifications and explanations to be considered.
 - Ascolta must only be used for private purposes, any commercial use of Ascolta is strictly forbidden.
@@ -9,7 +11,7 @@ TERMS OF SERVICE FOR USERS
 - Should individual provisions of these present terms and conditions be or become ineffective, this shall not affect the effectiveness of the remaining provisions.
 - The legal venue shall, if admissible, be Indore, India.
 
-TERMS OF SERVICE FOR CREATORS
+## TERMS OF SERVICE FOR CREATORS
 
 - Ascolta cares about copyright infringments seriously. We don't intend any copyright infrignments. Ascolta brings all the content from YouTube, with respect to both YouTube Terms of Service and YouTube API.
 - Ascolta Offers a technical service on a voluntary basis. Hence, Ascolta does not take liability for the service working unimpeded or for permanent availability of the service.
