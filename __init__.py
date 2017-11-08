@@ -220,8 +220,8 @@ def recommended():
                     response.append(playlist_tracks)
         topics = [
             {'topicId':'/m/04rlf','title':'Music'},
-            {'topicId':'/m/02lkt','title':'Electronic Music'},
-            {'topicId':'/m/06by7','title':'Rock Music'}
+            {'topicId':'/m/02lkt','title':'EDM'},
+            {'topicId':'/m/06by7','title':'Rock'}
         ]
         for topic in topics:
             options_topic = {'part':'snippet','maxResults':8,'key':'AIzaSyDkNYRbreB8JHOggvjSznMIuw6TlvkHjGQ','regionCode':Repo.getRegion()['countryCode'],'topicId':topic['topicId']}
@@ -231,9 +231,6 @@ def recommended():
                 response.append(playlist_topics)
         return render('recommended',response=response,page=page)
     except Exception as e:
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
         return render('error',code=500,message=str(e))
 
 @site.route("/ajax/stream")
@@ -312,10 +309,11 @@ def recommend_more():
                     response.append(playlist_topics)
         return render('recommended',response=response,page=page)
     except Exception as e:
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
         return render('error',code=500,message=str(e))
+
+@site.route('/robots.txt')
+def robots_txt():
+    return send_file('/var/www/Ascolta/Ascolta/assets/robots.txt')
 
 @site.errorhandler(500)
 def internal_server_error(e):

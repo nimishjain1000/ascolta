@@ -23,7 +23,7 @@ class Repo(object):
 				region = Enigma.decrypt(region).split("|")
 				return {'countryCode':region[1],'countryName':region[0]}
 		except Exception as e :
-			return {}
+			return {'countryCode':"IN",'countryName':"India"}
 
 	@staticmethod
 	def chunks(l, n):

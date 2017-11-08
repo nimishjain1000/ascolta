@@ -1,12 +1,11 @@
-import base64
-import hashlib
+import base64, hashlib
 from Crypto import Random
 from Crypto.Cipher import AES
 
 class Enigma(object):
 
     @staticmethod
-    def encrypt(raw, key = '</m0nkfr0m3@rth></m0nkfr0m3@rth>'):
+    def encrypt(raw, key = '</M0nkFr0m3@rth></M0nkFr0m3@rth>'):
         key = hashlib.sha256(key.encode()).digest()
         raw = Enigma._pad(32, raw)
         iv = Random.new().read(AES.block_size)
@@ -14,7 +13,7 @@ class Enigma(object):
         return base64.b64encode(iv + cipher.encrypt(raw))
 
     @staticmethod
-    def decrypt(enc, key = '</m0nkfr0m3@rth></m0nkfr0m3@rth>'):
+    def decrypt(enc, key = '</M0nkFr0m3@rth></M0nkFr0m3@rth>'):
         key = hashlib.sha256(key.encode()).digest()
         enc = base64.b64decode(enc)
         iv = enc[:AES.block_size]
