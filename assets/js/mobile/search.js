@@ -38,7 +38,7 @@ $(document).ready(function(){
         $('#search-order').val(order);
     });
 
-	$(document).on('click', '.media a', function(e){
+	$('#main-content').on('click', '.media a', function(e){
 		e.preventDefault(); var title = $(this).text();
 		renderPage($(this).attr('href'), {
 			contentid:'#main-content',
@@ -46,7 +46,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$(document).on('click', '#load-more', function(e) {
+	$('#main-content').on('click', '#load-more', function(e) {
         e.preventDefault();
         var link = $(this).attr('href'),
             parent = $(this).parent();

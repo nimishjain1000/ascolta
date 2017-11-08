@@ -73,7 +73,7 @@ def render(name,**kwargs):
 # Routing and Definitions
 
 @site.route('/')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def index():
     try:
         return render('index')
@@ -81,7 +81,7 @@ def index():
         return render('error',code=500,message=str(e))
 
 @site.route('/home')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def home():
     try:
         return render('home')
@@ -89,7 +89,7 @@ def home():
         return render('error',code=500,message=str(e))
 
 @site.route('/trending')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def trending():
     try:
         pageToken = request.args.get('pageToken','')
@@ -99,7 +99,7 @@ def trending():
         return render('error',code=500,message=str(e))
 
 @site.route('/playlists')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def playlists():
     try:
         pageToken = request.args.get('pageToken','')
@@ -110,7 +110,7 @@ def playlists():
         return render('error',code=500,message=str(e))
 
 @site.route('/search')
-#@cache.cached(timeout=3600,key_prefix=make_cache_key)
+@cache.cached(timeout=3600,key_prefix=make_cache_key)
 def search():
     try:
         q = request.args.get('q', '') 
@@ -160,7 +160,7 @@ def search():
         return render('error',code=500,message=str(e))
 
 @site.route('/stream')
-#@cache.cached(timeout=3600,key_prefix=make_cache_key)
+@cache.cached(timeout=3600,key_prefix=make_cache_key)
 def stream():
     try:
         v = request.args.get('v')
@@ -178,7 +178,7 @@ def stream():
         return render('error',code=500,message=str(e))
 
 @site.route('/channel/<channelId>')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def channel(channelId):
     try:
         order = request.args.get('order','date')
@@ -193,14 +193,14 @@ def channel(channelId):
         return render('error',code=500,message=str(e))
 
 @site.route('/terms')
-#@cache.cached(timeout=604800,key_prefix=make_cache_key)
+@cache.cached(timeout=604800,key_prefix=make_cache_key)
 def terms():
     return render('terms')
 
 # Asynchronous Routes
 
 @site.route('/ajax/recommended')
-#@cache.cached(timeout=1800,key_prefix=make_cache_key)
+@cache.cached(timeout=1800,key_prefix=make_cache_key)
 def recommended():
     try:
         limit,response,page = int(request.args.get('limit','0')),[],'ajax/recommended/more'
@@ -242,6 +242,7 @@ def streamer():
         v = request.args.get('v')
         if v is not None:
             musicUrl = YouTube.musicURL(v)
+            print musicUrl
             if musicUrl is not False:
                 def generate():
                     fogg = urllib2.urlopen(musicUrl)
@@ -250,15 +251,12 @@ def streamer():
                         yield data
                         data = fogg.read(1024)
                 return Response(generate(), mimetype="audio/mpeg")
-            else:
-                return Response(mimetype="audio/mpeg")
-        else :
-            return Response(mimetype="audio/mpeg")
+        return Response(mimetype="audio/mpeg")
     except Exception as e:
         return Response(mimetype="audio/mpeg")
 
 @site.route('/ajax/query')
-#@cache.cached(timeout=86400,key_prefix=make_cache_key)
+@cache.cached(timeout=86400,key_prefix=make_cache_key)
 def get_query():
     try:
         q = request.args.get('q', '')
@@ -294,7 +292,7 @@ def change_location():
         return render('error',code=500,message=str(e))
 
 @site.route('/ajax/recommended/more')
-#@cache.cached(timeout=3600,key_prefix=make_cache_key)
+@cache.cached(timeout=3600,key_prefix=make_cache_key)
 def recommend_more():
     try:
         pageToken = request.args.get('pageToken','')
@@ -323,8 +321,12 @@ def recommend_more():
 def internal_server_error(e):
     return render('error', code=500, message='There was an error. We messed up.'), 500
 
+@site.errorhandler(401)
+def not_allowed(e):
+    return render('error', code=401, message='Page not found. Perhaps, it went missing.'), 401
+
 @site.errorhandler(403)
-def page_not_found(e):
+def unauthorized(e):
     return render('error', code=403, message='Page not found. Perhaps, it went missing.'), 403
 
 @site.errorhandler(404)
@@ -332,4 +334,4 @@ def page_not_found(e):
     return render('error', code=404, message='Page not found. Perhaps, it went missing.'), 404
 
 if __name__ == "__main__":
-    site.run(debug=True,threaded=True,port=80,host='0.0.0.0')
+    site.run(debug=True,threaded=True,host='0.0.0.0',port=8080)
