@@ -1,6 +1,6 @@
 #Imports
 
-from flask import Flask, render_template, request, url_for, Response, redirect, make_response, redirect, g, jsonify
+from flask import Flask, render_template, request, url_for, Response, redirect, make_response, redirect, g, jsonify, send_file
 from htmlmin.minify import html_minify
 from flask_cache import Cache
 from flask_mobility import Mobility
