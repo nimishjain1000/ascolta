@@ -8,7 +8,7 @@ class Repo(object):
 	def getLocation():
 	    try:
 			headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-			return json.loads(requests.get('http://freegeoip.net/json/'+request.remote_addr, headers=headers).content)
+			return json.loads(requests.get('http://freegeoip.net/json/'+request.remote_addr, headers=headers, verify=False).content)
 	    except Exception as e:
 	    	return {'country_name':'India','country_code':'IN'}
 

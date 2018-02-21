@@ -239,7 +239,6 @@ def streamer():
         v = request.args.get('v')
         if v is not None:
             musicUrl = YouTube.musicURL(v)
-            print musicUrl
             if musicUrl is not False:
                 def generate():
                     fogg = urllib2.urlopen(musicUrl)

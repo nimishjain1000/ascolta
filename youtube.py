@@ -21,14 +21,11 @@ class YouTube(object):
 	@staticmethod
 	def musicURL(id):
 	    try:
-	        music_url = None
-	        formats = ['139','140','141','256','258','325','328','171','172','249','250','251']
-	        for format in formats:
-	            with youtube_dl.YoutubeDL({'format':format,'youtube_include_dash_manifest': True,'quiet':True, 'no_warnings':True}) as ytdl:
-	                result = ytdl.extract_info('https://www.youtube.com/watch?v='+id,download=False)
-	                if len(result.get('url','')) > 0:
-	                    music_url = result.get('url')
-	                    break
+	    	music_url = None
+	        with youtube_dl.YoutubeDL({'format':'139/140/141/m4a/bestaudio','youtube_include_dash_manifest': True,'quiet':True, 'no_warnings':True}) as ytdl:
+			    result = ytdl.extract_info('https://www.youtube.com/watch?v='+id, download=False)
+			    if len(result.get('url','')) > 0: 
+			    	music_url = result.get('url')
 	        return music_url
 	    except Exception as e:
 	        return None
@@ -40,13 +37,14 @@ class YouTube(object):
 	@staticmethod
 	def validYouTubeURL(v,channel=False):
 		parameter = 'videos' if channel == False else 'channels'
-		yt_re = json.loads(requests.get('https://www.googleapis.com/youtube/v3/'+parameter, params={'part':'id','id':v,'key':'AIzaSyDkNYRbreB8JHOggvjSznMIuw6TlvkHjGQ'}).content)
+		yt_re = json.loads(requests.get('https://www.googleapis.com/youtube/v3/'+parameter, params={'part':'id','id':v,'key':'AIzaSyDkNYRbreB8JHOggvjSznMIuw6TlvkHjGQ'}, verify=False).content)
 		return True if len(yt_re.get('items', [])) > 0 else False
 
 	@staticmethod
 	def search(options):
 		try :
-			re_videos = json.loads(requests.get('https://www.googleapis.com/youtube/v3/search', params=options).content)
+			re_videos = json.loads(requests.get('https://www.googleapis.com/youtube/v3/search', params=options, verify=False).content)
+			print re_videos.get('error')
 			if len(re_videos.get('error', {})) > 0 :
 				message = re_videos['error']['errors'][0]['reason']
 				if message == 'invalidChannelId':
@@ -65,7 +63,7 @@ class YouTube(object):
 					all_id_chunked = list(Repo.chunks(all_id_str.strip(',').split(','),50))
 					for l in all_id_chunked:
 						this_id = ','.join(map(str,l))
-						re_video = json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos', params={'key':options['key'],'part':'contentDetails','id':this_id.strip(',')}).content)
+						re_video = json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos', params={'key':options['key'],'part':'contentDetails','id':this_id.strip(',')}, verify=False).content)
 						if re_video.get('items') is not None:
 							for item in re_video.get('items'):
 								duration = item['contentDetails']['duration']
@@ -87,7 +85,7 @@ class YouTube(object):
 	def getTrending(options):
 		try :
 			params = {'part':'snippet,contentDetails','chart':'mostPopular','regionCode':options.get('regionCode'),'maxResults':'25','key':'AIzaSyDkNYRbreB8JHOggvjSznMIuw6TlvkHjGQ','videoCategoryId':options.get('videoCategoryId', '10'),'pageToken':options.get('pageToken',''),'prevPageToken':options.get('prevPageToken')}
-			re_videos = json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos', params=params).content)
+			re_videos = json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos', params=params, verify=False).content)
 			if len(re_videos.get('error', {})) > 0 :
 					return {'status':False,'message':"Sorry, couldn't find the songs."}
 			else :
@@ -106,7 +104,7 @@ class YouTube(object):
 			params = {'part':'snippet,contentDetails','key':'AIzaSyDkNYRbreB8JHOggvjSznMIuw6TlvkHjGQ','id':v}
 			if pageToken is not None:
 				params['pageToken'] = pageToken
-			re_videos = json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos', params=params).content)
+			re_videos = json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos', params=params, verify=False).content)
 			if re_videos.get('error') is not None :
 					message = re_videos['error']['errors'][0]['reason']
 					return {'status':False,'message':"Sorry, couldn't find the song."}
@@ -124,7 +122,7 @@ class YouTube(object):
 	def getPlaylistInfo(plist,maxResults=50,pageToken=None):
 		try:
 			options = {'part':'snippet','key':'AIzaSyDkNYRbreB8JHOggvjSznMIuw6TlvkHjGQ','id':plist}
-			playlistInfo = json.loads(requests.get('https://www.googleapis.com/youtube/v3/playlists', params=options).content)
+			playlistInfo = json.loads(requests.get('https://www.googleapis.com/youtube/v3/playlists', params=options, verify=False).content)
 			if playlistInfo.get('error') is not None or len(playlistInfo.get('items',{})) == 0:
 				message = playlistInfo['error']['errors'][0]['reason']
 				if message == 'channelClosed':
@@ -142,7 +140,7 @@ class YouTube(object):
 			params = {'part':'snippet','key':options['key'],'playlistId':plist,'maxResults':maxResults}
 			if pageToken is not None:
 				params['pageToken'] = pageToken
-			re_videos = json.loads(requests.get('https://www.googleapis.com/youtube/v3/playlistItems', params=params).content)
+			re_videos = json.loads(requests.get('https://www.googleapis.com/youtube/v3/playlistItems', params=params, verify=False).content)
 			if re_videos.get('error') is not None :
 					message = re_videos['error']['errors'][0]['reason']
 					if message == 'playlistItemsNotAccessible':
@@ -157,7 +155,7 @@ class YouTube(object):
 					for item in re_videos.get('items'):
 						id = item['snippet']['resourceId'].get('videoId')+","+id if item['snippet']['resourceId'].get('videoId') is not None else id+""
 				if len(id.strip(',')) > 0:
-					re_video = json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos', params={'key':options['key'],'part':'contentDetails','id':id.strip(',')}).content)
+					re_video = json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos', params={'key':options['key'],'part':'contentDetails','id':id.strip(',')}, verify=False).content)
 					if re_video.get('items') is not None:
 						for item in re_video.get('items'):
 							duration = item['contentDetails']['duration']
@@ -183,7 +181,7 @@ class YouTube(object):
 				options['id'] = channelId
 			else :
 				return {'status':False,'message':"Sorry, couldn't find the artist's channel."}
-			channel = json.loads(requests.get('https://www.googleapis.com/youtube/v3/channels', params=options).content)
+			channel = json.loads(requests.get('https://www.googleapis.com/youtube/v3/channels', params=options, verify=False).content)
 			if len(channel.get('errors',{})) > 0:
 				message = re_videos['error']['errors'][0]['reason']
 				if message == 'channelForbidden':
@@ -204,7 +202,7 @@ class YouTube(object):
 	def getPlaylists(options):
 		try:
 			params = {'part':'snippet','key':'AIzaSyDkNYRbreB8JHOggvjSznMIuw6TlvkHjGQ','channelId':options['channelId'],'maxResults':50,'pageToken':options.get('pageToken','')}
-			playlists = json.loads(requests.get('https://www.googleapis.com/youtube/v3/playlists', params=params).content)
+			playlists = json.loads(requests.get('https://www.googleapis.com/youtube/v3/playlists', params=params, verify=False).content)
 			if playlists.get('error') is not None or len(playlists.get('items',{})) == 0:
 				message = playlists['error']['errors'][0]['reason']
 				if message == 'channelClosed':
